@@ -1,64 +1,46 @@
 const express = require("express"); // Import express
 const app = express();
-const array_sort = require("./task1");
-const array_new = require("./task2")
+const array_sort = require("./lib/task1")
+//  const kondisi = require("./lib/push");
+
+
 app.use(express.urlencoded({ extended: true}));
 
 app.get("/", (req,res) => {
    //home
-     return res.send('Welcome to the jungle');
+     return res.send('Welcome to the Jungle');
 });
 
-app.get("/task1", (req, res) => {
-    let nama = ["Tiara", "Soni", "Joko", "Yono", "Yos", "Tos"];
-    console.log("Before", nama);
+app.post("/task-4", (req, res) => {
+    let alpha = ["Hendriyono", "Joko", "Tosikin", "Yosh", "Tiara", "Soni"];
+    console.log("Sebelum dipost", alpha)
 
-    let result = array_sort.ascending_test(nama);
+    let tambah = req.body.tambah
+    let hasil = alpha.push(tambah)
+    let berhasil = array_sort.ascending_test(hasil)
 
+      berhasil.forEach(function(element, no) {
+        console.log(no+1 + '.' + element)
+   })
 
-    return res.send(result);
+    return res.send(`sebelum ditambahkan = ${alpha} ,setelah ditambahkan = ${berhasil}`)
 
 });
+// app.get('/task1', (req, res) => {
+//     let key1 = req.query.key1
+//     let key2 = req.query.key2
 
-app.get("/task3", (req, res) => {
-    let nama = ["Tiara", "Soni", "Joko", "Yono", "Yos", "Tos"];
-    console.log("Before", nama);
+//     let result = kondisi.task1(key1, key2)
 
-    // let result = array_sort.ascending_test(nama);
-    // console.log("After", result);
-    let result = array_sort.manipulate(nama);
-    console.log("After", result);
+//     return res.send(result)
+// })
 
+// app.post('/task2', (req, res) => {
+//     let {name, email, password} = req.body
+//     let result = kondisi.task2(name, email, password)
 
-    return res.send(result)
-
-})
-
-app.get("/task4",(req,res) => {
-    let data = ["Tiara", "Soni", "Joko", "Yono", "Yos", "Tos"];
-    let input = ["Pawit","Aji","Tri"]
-    console.log("Data Lama",data)
-
-
-    let result = array_new.merge(input,data);
-    console.log("after",result);
-    
-    
-    return res.send(result)
-})
-
-app.get("/task2", (req, res) => {
-    let alpha = ["Tiara", "Soni", "Joko", "Yono", "Yos", "Tos"];
-    console.log("Before", nama);
-
-    let result = array_sort.descending_test(nama);
-    console.log("After", result);
-
-    return res.send(result)
-    
-});
-
-//app.get("/array", array_routes);
+//     return res.send(result)
+// })
 
 app.listen(3300, () => {
     console.log('Example app listening on port 3300');

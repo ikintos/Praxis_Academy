@@ -1,35 +1,36 @@
 const express = require('express')
 const router = express.Router()
-const BookModel = require("../models/book")
+const { create, getAll } = require("../actions/books")
+const { isString } = require("lodash")
 
 router.post("/", (req, res) => {
-    let { title, description } = req.body
-    var insert_data = {
-        title,
-        description
+    let data = create(req)
+
+    if(isString(data) === true) {
+        return res.status(400).json({
+            status: "error",
+            message: data
+        })
     }
 
+    return res.status(200).json({
+        status: "success",
+        data,
+        message: "Book created successfully!"
 
-    let data = new BookModel(insert_data)
-    data.save()
+    })
+})
+
+router.get("/", async (req, res) => {
+    let data = await getAll()
 
     return res.send({
         status: "success",
         data,
-        message: "Book created successfully!"
-        // message:"Book List"
+        message: "Get all book data"
     })
-})
-    router.get("/", async (req, res) => {
-        let hasil = await BookModel.find({}).exec()
 
-        return res.send({
-            status : "Success",
-            hasil,
-            message : "List Book"
-        })
-               
-        
+
 })
 
 module.exports = router

@@ -37,7 +37,56 @@ const getAll = async () => {
     return query
 }
 
+const getDetail = async (id) => {
+    try {
+        let query = await Book.findOne({
+            _id: id
+        }).exec()
+
+        return query
+    } catch(err) {
+        throw err
+    }
+}
+
+const update = async (id, updated_data) => {
+    let { title, description, price, fresh } = updated_data
+    let opts = {
+        new: fresh === "true" ? true : false
+    }
+    let data = {
+        title,
+        description,
+        price
+    }
+    try {
+        let query = await Book.findOneAndUpdate({
+           _id : id 
+        }, data, opts).exec()
+        return query
+    } catch(err) {
+        throw err
+    }
+}
+
+const destroy = async (id) => {
+    try {
+        let query = await Book.findOneAndDelete({
+            _id: id
+        }).exec()
+
+        return query
+    } catch(err) {
+        throw err
+    }
+}
+
+
+
 module.exports = {
     create,
-    getAll
+    getAll,
+    getDetail,
+    update,
+    destroy
 }

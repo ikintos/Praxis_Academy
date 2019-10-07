@@ -1,10 +1,10 @@
-const mongoose = require ("mongoose")
+const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-let userSchema = new Schema ({
+let shopSchema = new Schema({
     name: String,
-    email: String,
-    phone: Number,
+    description: String,
+    owner: String,
     created_at: {
         type: Date,
         default: Date.now()
@@ -15,6 +15,6 @@ let userSchema = new Schema ({
     }
 })
 
-let User = mongoose.model("User", userSchema)
+let Shop = mongoose.model("Shop", shopSchema)
 
-module.exports = User
+module.exports = Shop

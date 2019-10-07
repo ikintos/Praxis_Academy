@@ -11,12 +11,12 @@ let bookSchema = new Schema({
     author: String,
     created_at: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     },
     
     updated_at: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     }
 })
 

@@ -1,12 +1,12 @@
 const express = require('express')
-const router = express.Router()
-const { update, destroy } = require("../actions/books")
+const router = express.Router();
 const { isString } = require("lodash")
 const ShowBook = require("../actions/books/show.action")
 const CreateBook = require("../actions/books/create.action")
 const Book = require("../actions/books/all.action")
 const SearchBook = require("../actions/books/search.action")
 const UpdateBook = require("../actions/books/update.action")
+const DelBook = require("../actions/books/delete.action")
 
 router.get("/search", async (req, res, next) => {
     let { title, description, price, author } = req.query
@@ -115,11 +115,11 @@ router.get("/:id", async (req, res, next) => {
 })
 
 
-router.delete("/:id", async (req, res) => {
-    let { id } = req.params
-
+router.delete('/:id', async (req, res, next) => {
+    let { id } = req.params    
     try {
-        let data = await destroy(id)
+        let data = await new DelBook(id).exec()
+        console.log(`Type of DelBook is ${typeof DelBook}`)
 
         return res.status(200).json({
             status: "success",

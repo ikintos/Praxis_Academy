@@ -71,9 +71,12 @@ const update = async (id, updated_data) => {
 
 const destroy = async (id) => {
     try {
-        let query = await Book.findOneAndDelete({
+        let deleted = {
+            deleted_at: Date.now()
+        }
+        let query = await Book.findOneAndUpdate({
             _id: id
-        }).exec()
+        },deleted).exec()
 
         return query
     } catch(err) {

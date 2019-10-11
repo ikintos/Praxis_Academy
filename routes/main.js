@@ -6,10 +6,10 @@ const shops = require("./shop.route")
 const auth = require("./auth.route")
 
 const route = (app) => {
-    app.use("/", index)
+    app.use("/index", index)
     app.use("/book", books)
     app.use("/user", verifyToken(), users)
-    app.use("/shop", shops)
+    app.use("/shop", verifyToken(), shops)
     app.use("/auth", auth)
 }
 

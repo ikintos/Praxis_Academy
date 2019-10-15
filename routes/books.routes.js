@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const { isString } = require("lodash")
+// const { price } = require("../actions/books/create.action")
 const ShowBook = require("../actions/books/show.action")
 const CreateBook = require("../actions/books/create.action")
 const Book = require("../actions/books/all.action")
@@ -61,21 +61,22 @@ router.put("/:id", async (req, res) => {
     }
 })
 
-router.post("/", async (req, res, next) => {
+router.post("/", async (req, res) => {
+    try {
     let data = await new CreateBook(req).exec()
-    if(isString(data) === true) {
-        return res.status(400).json({
-            status: "error",
-            message: data
-        })
-    }
+
 
     return res.status(200).json({
         status: "success",
         data,
         message: "Book created successfully!"
-
-    })
+            })
+    } catch(err) {
+        return res.send({
+            status: "Error",
+            message: err.message
+        })
+    }
 })
 
 router.get("/", async (req, res, next) => {

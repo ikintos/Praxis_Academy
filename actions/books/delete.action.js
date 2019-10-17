@@ -7,12 +7,12 @@ class DelBook {
 
     async exec(){
         try {
-            // let deleted = {
-            //     deleted_at: Date.now()
-            // }
-            let query = await Book.findOneAndDelete({
+            let deleted = {
+                deleted_at: Date.now()
+            }
+            let query = await Book.findOneAndUpdate({
                 _id: this.id
-            }).exec()
+            },deleted).exec()
     
             return query
         } catch(err) {

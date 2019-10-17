@@ -4,7 +4,7 @@ const User = require("../../models/user")
 class Book {
     static async all() {
         try {
-            let data = await BookModel.find({})
+            let data = await BookModel.find({deleted_at:null})
             .populate([
                 {
                     path: 'author',

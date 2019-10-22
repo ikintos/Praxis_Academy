@@ -1,44 +1,46 @@
-const User = require("../../models/user")
-const API = require("../../core/action.core")
+//Note : Function Search gabung dengan fungsi list
 
-class Search extends API {
-    constructor(){
-        super(User)
-    }
+// const User = require("../../models/user")
+// const API = require("../../core/action.core")
 
-    async exec(req, res, next){
-    try {
-        let params = {}
-        let { name, email, phone } = req.query
+// class Search extends API {
+//     constructor(){
+//         super(User)
+//     }
+
+//     async exec(req, res, next){
+//     try {
+//         let params = {}
+//         let { name, email, phone } = req.query
         
-            if (name) {
-                params.name = {
-                    $regex: `${name}`,
-                    $option: 'i'
-                    }
-                }
-            if(email) {
-                params.email = email
-                }
-            if(phone) {
-                params.phone = phone
-                }
+//             if (name) {
+//                 params.name ={
+//                     $regex: `${name}`,
+//                     $options: 'i'
+//                     }
+//                 }
+//             if(email) {
+//                 params.email = email
+//                 }
+//             if(phone) {
+//                 params.phone = phone
+//                 }
 
-        let data = await this.search(params)
-        console.log(`data ${JSON.stringify(data)}`)
+//         let data = await this.search(params)
+//         console.log(`data ${JSON.stringify(data)}`)
 
-        return res.send({
-            code: 200,
-            status:"success",
-            data
-            })
-        } catch(err){
-            return res.send({
-                code: 400,
-                status: "Error",
-                message: err.message
-            })
-        }
-    }
-}
-module.exports = Search
+//         return res.send({
+//             code: 200,
+//             status:"success",
+//             data
+//             })
+//         } catch(err){
+//             return res.send({
+//                 code: 400,
+//                 status: "Error",
+//                 message: err.message
+//             })
+//         }
+//     }
+// }
+// module.exports = Search

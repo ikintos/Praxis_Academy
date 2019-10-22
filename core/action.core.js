@@ -3,9 +3,9 @@ class Action {
         this.model = model
     }
 
-    async list(){
+    async list(params){
         try{
-            let data = await this.model.find({}).exec()
+            let data = await this.model.find(params).exec()
 
             return data
         } catch(err) {
@@ -17,18 +17,6 @@ class Action {
         try {
             let result = new this.model(data)
             await result.save()
-
-            return result
-        } catch(err){
-            throw err
-        }
-    }
-
-    async search(params) {
-        try{
-            let result = await this.model.find(
-                params
-                ).exec()
 
             return result
         } catch(err){
@@ -75,3 +63,15 @@ class Action {
 }
 
 module.exports = Action
+
+    // async search(params) {
+    //     try{
+    //         let result = await this.model.find(
+    //             params
+    //             ).exec()
+
+    //         return result
+    //     } catch(err){
+    //         throw err
+    //     }
+    // }

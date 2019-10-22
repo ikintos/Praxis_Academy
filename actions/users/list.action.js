@@ -12,7 +12,20 @@ const API = require("../../core/action.core")
 
      async exec(req, res, next) {
          try {
-             let data = await this.list()//get function from parent class
+            let params = {}
+            let { name, email } = req.query
+            
+                if (name) {
+                    params.name ={
+                        $regex: `${name}`,
+                        $options: 'i'
+                        }
+                    }
+                if(email) {
+                params.email = email
+                }
+
+             let data = await this.list(params)//get function from parent class
              console.log(`data ${JSON.stringify(data)}`)
 
              return res.send({

@@ -8,7 +8,7 @@ const UserCreate = require("../actions/users/create.action")
 const UserUpdate = require("../actions/users/update.action")
 const UserShow = require("../actions/users/show.action")
 const UserDelete = require("../actions/users/delete.action")
-const UserSearch = require("../actions/users/search.action")
+// const UserSearch = require("../actions/users/search.action")
 
 router.post("/", [
     check('name').not().isEmpty(),
@@ -49,8 +49,8 @@ await new UserUpdate().exec(req, res, next))
 router.delete("/:id", async(req,res,next)=>
 await new UserDelete().exec(req, res, next))
 
-router.get("/search", async(req, res, next) =>
-await new UserSearch().exec(req,res,next))
+// router.get("/cari", async(req, res, next) =>
+// await new UserSearch().exec(req,res,next))
 
 module.exports = router
 

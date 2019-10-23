@@ -8,6 +8,7 @@ const UserCreate = require("../actions/users/create.action")
 const UserUpdate = require("../actions/users/update.action")
 const UserShow = require("../actions/users/show.action")
 const UserDelete = require("../actions/users/delete.action")
+const UserProfile = require("../actions/users/detail.action")
 // const UserSearch = require("../actions/users/search.action")
 
 router.post("/", [
@@ -19,26 +20,28 @@ router.post("/", [
 router.get("/list", async(req, res, next) =>
     await new UserList().exec(req, res, next))
 
-router.get("/my-profile", async(req, res) =>{
-    try{
-        let user_token = req.header("Authorization")
-        let user_data = await jwt.verify(user_token, process.env.JWT_SECRET)
-        console.log(`User data from token ${JSON.stringify(user_data)}`)
+router.get("/my-profile", async(req, res,next) =>
+    await new UserProfile().exec(req,res,next))
+// router.get("/my-profile", async(req, res) =>{
+//     try{
+//         let user_token = req.header("Authorization")
+//         let user_data = await jwt.verify(user_token, process.env.JWT_SECRET)
+//         console.log(`User data from token ${JSON.stringify(user_data)}`)
 
-        let data = await getDetail(user_data.user_id)
+//         let data = await getDetail(user_data.user_id)
 
-        return res.status(200).json({
-            status:"Success",
-            data,
-            message: "User Login data"
-        })
-    }catch(err){
-        return res.status(400).json({
-            status:"error",
-            message: err.message
-        })
-    }
-})
+//         return res.status(200).json({
+//             status:"Success",
+//             data,
+//             message: "User Login data"
+//         })
+//     }catch(err){
+//         return res.status(400).json({
+//             status:"error",
+//             message: err.message
+//         })
+//     }
+// })
 
 router.get("/:id", async (req, res, next) =>
 await new UserShow().exec(req, res, next))

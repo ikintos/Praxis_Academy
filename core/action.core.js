@@ -3,10 +3,34 @@ class Action {
         this.model = model
     }
 
-    async list(params){
+    async list(params, params2){
         try{
-            let data = await this.model.find(params).exec()
+            // console.log(params2)
+            // let data = await this.model.find(params).exec()
+            let data = await this.model.paginate(params2,
+                params
+                ).then(res => {
+                    return {
+                        data: res.docs,
+                        total: res.total,
+                        limit: res.limit,
+                        page: res.page,
+                        pages: res.pages
+                    }
+                })
 
+            // let result = await data.paginate(
+            //     this.params
+            //     ).then(res => {
+            //         return {
+            //             data: res.docs,
+            //             total: res.total,
+            //             limit: res.limit,
+            //             page: res.page,
+            //             pages: res.pages
+            //         }
+            //     })
+            // return result
             return data
         } catch(err) {
             throw err
@@ -21,6 +45,16 @@ class Action {
             return result
         } catch(err){
             throw err
+        }
+    }
+
+    async detail(data) {
+        try {
+            let result = await this.model.findOne({_id : data}).exec()
+            console.log(result)
+            return result
+        } catch(err){
+            throw err                      
         }
     }
 
@@ -44,7 +78,7 @@ class Action {
         }
     }
 
-    async update(id, sdata){
+    async update(id, data){
         try {
             let result = await this.model.findByIdAndUpdate({
                 _id: id

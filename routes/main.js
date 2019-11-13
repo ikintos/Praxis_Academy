@@ -10,9 +10,9 @@ const route = (app) => {
     app.use("/", index)
     app.use("/book", books)
     app.use("/user", users)
-    app.use("/shop", verifyToken(), shops)
+    app.use("/shop", shops)
     app.use("/auth", auth)
     app.use("/reset", reset)
 }
-
+// verifyToken(),
 module.exports = route

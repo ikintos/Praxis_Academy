@@ -1,4 +1,4 @@
-const express = require('express')
+    const express = require('express')
 const router = express.Router()
 const {create, getAll, getDetail, update, destroy } = require("../actions/users")
 const { check } = require("express-validator")

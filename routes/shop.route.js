@@ -83,4 +83,8 @@ router.get("/:id", async (req, res, next) => {
     }
 })
 
+
+router.get("/list", async(req, res, next) =>
+    await new UserList().exec(req, res, next))
+
 module.exports = router

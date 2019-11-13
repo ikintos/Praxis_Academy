@@ -2,6 +2,7 @@ const User = require("../../models/user")
 const API = require("../../core/action.core")
 const jwt = require("jsonwebtoken")
 
+
 class Detail extends API {
     constructor(){
         super(User)
